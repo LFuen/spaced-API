@@ -18,6 +18,7 @@ async function requireAuth(req, res, next) {
       req.app.get('db'),
       payload.sub,
     )
+    console.log(user)
 
     if (!user)
       return res.status(401).json({ error: 'Unauthorized request' })
@@ -25,6 +26,7 @@ async function requireAuth(req, res, next) {
     req.user = user
     next()
   } catch (error) {
+    console.log('words')
     if (error instanceof JsonWebTokenError)
       return res.status(401).json({ error: 'Unauthorized request' })
 
