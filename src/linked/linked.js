@@ -1,5 +1,3 @@
-'use strict'
-
 
 class _Node {
     constructor(value, next){

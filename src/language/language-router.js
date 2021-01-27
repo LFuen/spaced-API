@@ -36,6 +36,7 @@ languageRouter.get("/", async (req, res, next) => {
       language: req.language,
       words,
     });
+    console.log(words)
     next();
   } catch (error) {
     next(error);
@@ -82,10 +83,10 @@ languageRouter.post("/guess", parser, async (req, res, next) => {
       req.app.get("db"),
       req.language.id
     );
-      console.log(nextWord)
-      console.log(guess)
+
     if (nextWord.translation.toLowerCase() === guess) {
       let memValue = list.head.value.memory_value * 2;
+      list.head.value.memory_value = memValue
       list.head.value.correct_count++;
 
       let current = list.head;

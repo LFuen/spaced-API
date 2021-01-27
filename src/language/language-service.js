@@ -49,6 +49,7 @@ const LanguageService = {
   },
 
   createLL(words, head) {
+    console.log('Begin words', words)
     const hObject = words.find((word) => word.id === head);
     const hIndex = words.indexOf(hObject);
     const hNode = words.splice(hIndex, 1);
@@ -62,6 +63,7 @@ const LanguageService = {
     current = words.find((word) => word.id === nextId);
 
     while (current !== null) {
+      console.log('This is the current', current)
       list.insertLast(current);
       nextId = current.next;
       if (nextId === null) {
