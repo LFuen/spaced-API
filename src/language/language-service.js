@@ -1,4 +1,4 @@
-const { LinkedList } = require("../linked/linked");
+const { LinkedList, array } = require("../linked/linked");
 
 const LanguageService = {
   getUsersLanguage(db, user_id) {
@@ -42,7 +42,7 @@ const LanguageService = {
   getLangHead(db, language_id) {
     return db
       .from("language")
-      .join("word", "word.language.id", "=", "language.id")
+      .join("word", "word.language_id", "=", "language.id")
       .select("head")
       .groupBy("head")
       .where({ language_id });
@@ -82,9 +82,9 @@ const LanguageService = {
   },
 
   updateTable(db, words, language_id, total_score) {
-    return db.transaction(async (trans) => {
+    return db.transaction(async (trx) => {
       return Promise.all([
-        trans("language").where({ id: language_id }).update({
+        trx("language").where({ id: language_id }).update({
           total_score,
           head: words[0].id,
         }),
@@ -94,7 +94,7 @@ const LanguageService = {
           } else {
             word.next = words[index + 1].id;
           }
-          return trans("word")
+          return trx("word")
             .where({ id: word.id })
             .update({
               ...word,

@@ -5,7 +5,7 @@ async function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || ''
 
   let bearerToken
-  if (!authToken.toLowerCase().startsWith('Bearer ')) {
+  if (!authToken.toLowerCase().startsWith('bearer ')) {
     return res.status(401).json({ error: 'Missing bearer token' })
   } else {
     bearerToken = authToken.slice(7, authToken.length)
@@ -18,7 +18,6 @@ async function requireAuth(req, res, next) {
       req.app.get('db'),
       payload.sub,
     )
-    console.log(user)
 
     if (!user)
       return res.status(401).json({ error: 'Unauthorized request' })
@@ -26,7 +25,6 @@ async function requireAuth(req, res, next) {
     req.user = user
     next()
   } catch (error) {
-    console.log('words')
     if (error instanceof JsonWebTokenError)
       return res.status(401).json({ error: 'Unauthorized request' })
 

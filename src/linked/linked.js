@@ -111,16 +111,11 @@ class LinkedList {
 
     printList() {
         let current = this.head
-        let counter = 0
-        if(!this.head) {
-            return counter
-        } else {
-            while (current) {
-                counter++
-                current = current.next
-            }
+        let str = ''
+        while(current) {
+            str += current.value + ' '
+            current = current.next
         }
-        return counter
     }
 
     listSize() {

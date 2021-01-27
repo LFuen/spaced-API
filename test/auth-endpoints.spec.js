@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken')
 const app = require('../src/app')
 const helpers = require('./test-helpers')
-require('dotenv').config()
 
 describe('Auth Endpoints', function () {
   let db
@@ -77,11 +76,9 @@ describe('Auth Endpoints', function () {
         process.env.JWT_SECRET,
         {
           subject: testUser.username,
-          expiresIn: process.env.JWT_EXPIRY,
           algorithm: 'HS256',
         }
       )
-      console.log('this', expectedToken)
       return supertest(app)
         .post('/api/auth/token')
         .send(userValidCreds)
@@ -108,7 +105,6 @@ describe('Auth Endpoints', function () {
         process.env.JWT_SECRET,
         {
           subject: testUser.username,
-          expiresIn: process.env.JWT_EXPIRY,
           algorithm: 'HS256',
         }
       )
